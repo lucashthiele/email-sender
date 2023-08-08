@@ -26,13 +26,13 @@ public class KafkaConsumerConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, this.bootstrapServers);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         return props;
     }
 
     @Bean
     public ConsumerFactory<String, Email> consumerFactory() {
-        return new DefaultKafkaConsumerFactory(this.consumerConfig(), new StringDeserializer(), new JsonDeserializer(Email.class));
+        return new DefaultKafkaConsumerFactory(this.consumerConfig(), new StringDeserializer(), new JsonDeserializer(Email.class, false));
     }
 
     @Bean
